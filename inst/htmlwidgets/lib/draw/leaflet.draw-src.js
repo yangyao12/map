@@ -445,7 +445,7 @@ L.Draw.Feature = L.Handler.extend({
         popup.setLatLng(bounds.getCenter());
         popup.setContent(content);
         this._map.openPopup(popup);
-    }
+    })
 	},
 
 	// Cancel drawing when the escape key is pressed
