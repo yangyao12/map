@@ -4437,6 +4437,7 @@ L.EditToolbar.Delete = L.Handler.extend({
 		this._deletedLayers.addLayer(layer);
 
 		layer.fire('deleted');
+		this._map.closePopup();
 	},
 
 	_onMouseMove: function (e) {
