@@ -436,6 +436,16 @@ L.Draw.Feature = L.Handler.extend({
 
 	_fireCreatedEvent: function (layer) {
 		this._map.fire(L.Draw.Event.CREATED, { layer: layer, layerType: this.type });
+		popup = new L.Popup();
+		content = "Input information by User <p> <input type='text'/><p><p><button id='submit' type='button'>Submit</button>";
+
+    layer.on('click', function(e){
+
+       var bounds = layer.getBounds();
+        popup.setLatLng(bounds.getCenter());
+        popup.setContent(content);
+        this._map.openPopup(popup);
+    }
 	},
 
 	// Cancel drawing when the escape key is pressed
