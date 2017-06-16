@@ -437,8 +437,7 @@ L.Draw.Feature = L.Handler.extend({
 	_fireCreatedEvent: function (layer) {
 		this._map.fire(L.Draw.Event.CREATED, { layer: layer, layerType: this.type });
 		popup = new L.Popup();
-		content = "Input information by User <p> <input type='text'/><p><p><button id='submit' type='button'>Submit</button>";
-
+		content = "Input information <p> <textarea id='userinfo' rows='5'  wrap='soft' onkeypress=' Shiny.onInputChange(\"input_click\", event.keyCode+Math.random() )'></textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\", Math.random() )'>Submit</button>";
     layer.on('click', function(e){
 
        var bounds = layer.getBounds();
