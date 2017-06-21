@@ -3956,6 +3956,7 @@ L.EditToolbar = L.Toolbar.extend({
 	},
 
 	_clearAllLayers:function(){
+		alert("Are you sure to clear all?");
 		this._activeMode.handler.removeAllLayers();
 		if (this._activeMode) {
 			this._activeMode.handler.disable();
