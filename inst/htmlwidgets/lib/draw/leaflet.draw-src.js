@@ -3956,12 +3956,17 @@ L.EditToolbar = L.Toolbar.extend({
 	},
 
 	_clearAllLayers:function(){
-		alert("Are you sure to clear all?");
-		this._activeMode.handler.removeAllLayers();
+		//alert("Are you sure to clear all?");
+		var answer = confirm("Are you sure to clear all drawing?");
+if (answer) {
+    this._activeMode.handler.removeAllLayers();
 		if (this._activeMode) {
 			this._activeMode.handler.disable();
 		}
-	},
+}
+else {
+    //some code
+},
 
 	_checkDisabled: function () {
 		var featureGroup = this.options.featureGroup,
