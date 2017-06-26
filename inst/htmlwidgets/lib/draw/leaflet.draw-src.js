@@ -349,7 +349,7 @@ L.Draw.Event.DELETESTART = 'draw:deletestart';
 L.Draw.Event.DELETESTOP = 'draw:deletestop';
 
 popup = new L.Popup();
-content = "Input  <p> <textarea id='userinfo' rows='5'  wrap='soft' placeholder='Your message here.' onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", event.keyCode+Math.random() )'></textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\", Math.random());'>Submit</button>";
+content = "Input  <p> <textarea id='userinfo' rows='5'  wrap='soft' placeholder='Your message here.' onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", (event.keyCode||event.charCode)+Math.random() )'></textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\", Math.random());'>Submit</button>";
 var popupcopy = null;
 
 L.Draw = L.Draw || {};
@@ -445,7 +445,7 @@ L.Draw.Feature = L.Handler.extend({
                      
                       var userinfo = document.getElementById("uselement").innerHTML; 
                        //alert(userinfo);
-                       content = "Input  <p> <textarea id='userinfo' rows='5'  wrap='soft' ".concat("placeholder= ''  onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", event.keyCode+Math.random() )'>" , userinfo, "</textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\", Math.random());'>Submit</button>");
+                       content = "Input  <p> <textarea id='userinfo' rows='5'  wrap='soft' ".concat("placeholder= ''  onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", (event.keyCode||event.charCode)+Math.random() )'>" , userinfo, "</textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\", Math.random());'>Submit</button>");
                       popup.setContent(content);
             
                      }
