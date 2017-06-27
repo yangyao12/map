@@ -469,8 +469,9 @@ L.Draw.Feature = L.Handler.extend({
 		             winterno = "checked";winteryes = "";
 		           }
 
-		    content = "Input  <p> <textarea id='userinfo' rows='5'  wrap='soft' placeholder='Your message here.' onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", (event.keyCode||event.charCode)+Math.random() )'></textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick=' Shiny.onInputChange(\"button_click\",  Math.random());'>Submit</button>";
-		      layer.bindPopup(content);
+		    content = "Input information <p> <textarea id='userinfo' oninput='myFunction(this.value)' rows='5'  wrap='soft' ".concat("placeholder= ''  onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", event.which+Math.random() )' >" , layer.feature.properties.userinput, "</textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' ",winteryes, " onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' ", winterno, " onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\",  Math.random());'>Submit</button>");
+			     
+			     layer.bindPopup(content);
 
 		       }),
 			this._map.fire(L.Draw.Event.CREATED, { layer: layer, layerType: this.type });
