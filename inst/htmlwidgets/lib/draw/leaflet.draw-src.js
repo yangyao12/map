@@ -350,7 +350,7 @@ L.Draw.Event.DELETESTOP = 'draw:deletestop';
 
 popup = new L.Popup();
 content = "Input  <p> <textarea id='userinfo' rows='5'  wrap='soft' placeholder='Your message here.' onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", (event.keyCode||event.charCode)+Math.random() )'></textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\", Math.random());'>Submit</button>";
-var popupcopy = null;
+
 
 L.Draw = L.Draw || {};
 
@@ -438,27 +438,39 @@ L.Draw.Feature = L.Handler.extend({
 	},
 
 	_fireCreatedEvent: function (layer) {
-		this._map.fire(L.Draw.Event.CREATED, { layer: layer, layerType: this.type });
+		      layer.bindPopup(content);
+		
+		     this._map.on('popupclose',function(e){
+			     var pid = layer.feature.properties._leaflet_id;
+			     pid = pid.toString();
+			     var phtml = document.getElementById("polyid").innerHTML;
+			     //alert(phtml);
+			     if(phtml == pid){
+			       // alert(phtml);
+				 var userinfo = document.getElementById("uselement").innerHTML; 
+				 layer.feature.properties.userinput = userinfo;
+				 layer.feature.properties.winter = document.getElementById("winter").innerHTML; 
+		     }
+
+		     }),
+	     
+		     layer.on('click', function(e){
+		           var winteryes = "";
+			   var winterno = "";
+		          if( layer.feature.properties.winter == "Yes"){
+		              winteryes = "checked";winterno = "";
+		            }
+		           else if(layer.feature.properties.winter == "No"){
+		             winterno = "checked";winteryes = "";
+		           }
+
+		      content = "Input information <p> <textarea id='userinfo' rows='5'  wrap='soft' ".concat("placeholder= ''  onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", event.keyCode+Math.random() )'>" , layer.feature.properties.userinput, "</textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' ",winteryes, " onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' ", winterno, " onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\",  Math.random());'>Submit</button>");
+
+		      layer.bindPopup(content);
+
+		       }),
+			this._map.fire(L.Draw.Event.CREATED, { layer: layer, layerType: this.type });
 				
-		layer.on('click', function(e){
- 		    if(popupcopy !== null){
-                     
-                      var userinfo = document.getElementById("uselement").innerHTML; 
-                       //alert(userinfo);
-                       content = "Input  <p> <textarea id='userinfo' rows='5'  wrap='soft' ".concat("placeholder= ''  onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", (event.keyCode||event.charCode)+Math.random() )'>" , userinfo, "</textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\", Math.random());'>Submit</button>");
-                      popup.setContent(content);
-            
-                     }
-                 else{
-                    popup.setContent(content);
-                 }
-       
-               var bounds = layer.getBounds();
-               popup.setLatLng(bounds.getCenter());
-               popup.setContent(content);
-               this._map.openPopup(popup);
-			 popupcopy = popup;
-   		 })
 	},
 
 	// Cancel drawing when the escape key is pressed
