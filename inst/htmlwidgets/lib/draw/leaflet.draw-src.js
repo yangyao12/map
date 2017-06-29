@@ -459,22 +459,34 @@ L.Draw.Feature = L.Handler.extend({
 
 		     }),
 	     
-		     layer.on('click', function(e){
-		           var winteryes = "";
-			   var winterno = "";
-		          if( layer.feature.properties.winter == "Yes"){
-		              winteryes = "checked";winterno = "";
-		            }
-		           else if(layer.feature.properties.winter == "No"){
-		             winterno = "checked";winteryes = "";
-		           }
-
-		    content = "Input information <p> <textarea id='userinfo' oninput='myFunction(this.value)' rows='5'  wrap='soft' ".concat("placeholder= ''  onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", event.which+Math.random() )' >" , layer.feature.properties.userinput, "</textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' ",winteryes, " onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' ", winterno, " onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' type='button' onclick='Shiny.onInputChange(\"button_click\",  Math.random());'>Submit</button>");
+	         this._map.on('popupopen', function() {
+       		   var winteryes = "";
+		   var winterno = "";
+		  if( layer.feature.properties.winter == "Yes"){
+		      winteryes = "checked";winterno = "";
+		    }
+		   else if(layer.feature.properties.winter == "No"){
+		     winterno = "checked";winteryes = "";
+		   }
+		           
+    		 content = "<form role = 'form' id= 'form' enctype='multipart/form-data' onsubmit=''> Input information <p> <textarea id='userinfo' oninput='myFunction(this.value)' rows='5'  wrap='soft' ".concat("placeholder= ''  onfocus='this.select()' onkeypress='Shiny.onInputChange(\"input_click\", event.which+Math.random() )' >" , layer.feature.properties.userinput , "</textarea><p> Winter Kill? <br> <input type='radio' name='winter' value='Yes' ",winteryes, " onclick='Shiny.onInputChange(\"button_yesclick\",  Math.random())'> Yes<br><input type='radio' name='winter' value='No' ", winterno, " onclick='Shiny.onInputChange(\"button_noclick\",  Math.random())'> No<br><p><button id='submit' class='submitclick' type='button' onclick='Shiny.onInputChange(\"button_click\",  Math.random());'>Submit</button></form>");
+  
+                 layer.bindPopup(content);
+     
+                $('.submitclick').click(function() {
+                 
+                  var userinfo = document.getElementById("uselement").innerHTML; 
+                 alert(userinfo);
+                 layer.feature.properties.userinput = userinfo;
+                 layer.feature.properties.winter = document.getElementById("winter").innerHTML; 
+                 Shiny.onInputChange("button_click",  layer.toGeoJSON());
+                 });
+               }),
 			     
-			     layer.bindPopup(content);
-
-		       }),
-			this._map.fire(L.Draw.Event.CREATED, { layer: layer, layerType: this.type });
+		layer.on('click', function(e){
+			     
+		}),
+		this._map.fire(L.Draw.Event.CREATED, { layer: layer, layerType: this.type });
 				
 	},
 
