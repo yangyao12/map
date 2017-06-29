@@ -476,7 +476,7 @@ L.Draw.Feature = L.Handler.extend({
                 $('.submitclick').click(function() {
                  
                   var userinfo = document.getElementById("uselement").innerHTML; 
-                 alert(userinfo);
+                 //alert(userinfo);
                  layer.feature.properties.userinput = userinfo;
                  layer.feature.properties.winter = document.getElementById("winter").innerHTML; 
                  Shiny.onInputChange("button_click",  layer.toGeoJSON());
